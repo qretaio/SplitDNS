@@ -1,0 +1,28 @@
+[package]
+name = "splitdns"
+version = "0.1.0"
+edition = "2024"
+authors = ["Qreta Studio <qretadev@gmail.com>"]
+description = "Cross-platform DNS split-domain configuration and internal DNS resolution"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/qretaio/splitdns"
+keywords = ["dns", "networking", "split-dns", "cross-platform"]
+categories = ["network-programming", "os"]
+
+[dependencies]
+thiserror = "2.0"
+# Core dependencies
+tokio = { version = "1.0", features = ["full"] }
+
+# Platform-specific dependencies
+[target.'cfg(target_os = "linux")'.dependencies]
+nix = { version = "0.30", features = ["net"] }
+tokio = { version = "1.0", features = ["net"] }
+zbus = { version = "3", default-features = false, features = ["tokio"] }
+zbus_systemd = { version = "0.25800", features = ["resolve1"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+nix = "0.30"
+
+[dev-dependencies]
+tempfile = "3.0"

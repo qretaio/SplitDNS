@@ -1,0 +1,13 @@
+//! Platform-specific DNS implementations
+
+#[cfg(target_os = "macos")]
+pub mod macos;
+
+#[cfg(target_os = "linux")]
+pub mod linux;
+
+#[cfg(target_os = "macos")]
+pub use macos::MacOsDns as PlatformDns;
+
+#[cfg(target_os = "linux")]
+pub use linux::LinuxDns as PlatformDns;
